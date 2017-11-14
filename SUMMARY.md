@@ -2,7 +2,11 @@
 
 * [简介](README.md)
 * [micro](micro.md)
-* [go-micro](go-micro.md)
+  * Overview\(综述\)
+  * Guides\(指南\)
+  * Components\(组件\)
+  * Deploy\(部署\)
+  * Plugins\(插件\)
 * [micro api](micro-api.md)
   * [micro api启动流程](micro-api/micro-apiqi-dong-liu-cheng.md)
 * [概念文档](gai-nian-wen-dang.md)

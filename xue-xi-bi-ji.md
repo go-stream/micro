@@ -4,8 +4,7 @@ yum update
 
 vim /etc/yum.repos.d/docker.repo
 
-```bash
-
+```c
 [dockerrepo]
 name=Docker Repository
 baseurl=https://yum.dockerproject.org/repo/main/centos/7/

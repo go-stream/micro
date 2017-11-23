@@ -1,3 +1,5 @@
+1、环境
+
 1708的centos7
 
 yum update
@@ -21,8 +23,6 @@ systemctl enable docker.service
 systemctl start docker
 
 docker info
-
-
 
 docker pull microhq/micro
 

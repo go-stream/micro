@@ -1,4 +1,4 @@
-1、环境
+* 环境
 
 1708的centos7
 
@@ -23,8 +23,6 @@ systemctl enable docker.service
 systemctl start docker
 
 docker info
-
-
 
 2、下载
 

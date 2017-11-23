@@ -26,9 +26,7 @@
 2. 下载  
    docker pull microhq/micro
 
-3. 11
-
-
+3. 其他
 
 
 

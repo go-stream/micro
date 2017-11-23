@@ -1,5 +1,8 @@
 1. 环境
 2. 下载
+   docker pull microhq/micro
+
+3. 11
 
 1708的centos7
 
@@ -27,5 +30,5 @@ docker info
 
 1. 下载
 
-docker pull microhq/micro
+
 

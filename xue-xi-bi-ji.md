@@ -4,7 +4,7 @@ yum update
 
 vim /etc/yum.repos.d/docker.repo
 
-```
+```bash
 [dockerrepo]
 name=Docker Repository
 baseurl=
@@ -14,7 +14,6 @@ enabled=1
 gpgcheck=1
 gpgkey=
 https://yum.dockerproject.org/gpg
-
 ```
 
 yum install docker-engine -y

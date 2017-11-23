@@ -1,4 +1,4 @@
-1. 环境
+1. 环境  
    1708的centos7
 
    yum update
@@ -23,12 +23,9 @@
 
    docker info
 
-2. 3. 下载  
+2. 下载  
    docker pull microhq/micro
-
-4. 11
-
-
+3. 11
 
 1. 下载
 

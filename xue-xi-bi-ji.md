@@ -23,7 +23,7 @@
 
    docker info
 
-2. 下载  
+2. 下载镜像  
    docker pull microhq/micro
 
 3. 其他

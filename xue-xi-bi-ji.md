@@ -1,5 +1,15 @@
 1708的centos7
 
+yum update
+
+
+
+vim /etc/yum.repos.d/docker.repo
+
+
+
+{
+
 \[dockerrepo\]
 
 name=Docker Repository
@@ -11,4 +21,22 @@ enabled=1
 gpgcheck=1
 
 gpgkey=https://yum.dockerproject.org/gpg
+
+}
+
+
+
+
+
+
+
+yum install docker-engine -y
+
+
+
+systemctl enable docker.service
+
+systemctl start docker
+
+docker info
 

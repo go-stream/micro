@@ -24,5 +24,9 @@ systemctl start docker
 
 docker info
 
+
+
+2、下载
+
 docker pull microhq/micro
 

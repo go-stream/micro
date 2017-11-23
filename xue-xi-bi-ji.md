@@ -22,3 +22,7 @@ systemctl start docker
 
 docker info
 
+
+
+docker pull microhq/micro
+

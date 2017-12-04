@@ -47,4 +47,5 @@
 * [学习笔记](xue-xi-bi-ji.md)
 * [项目](xiang-mu.md)
   * [环境搭建](xiang-mu/huan-jing-da-jian.md)
+  * [echo来创建静态文件的服务器](xiang-mu/echolai-chuang-jian-jing-tai-wen-jian-de-fu-wu-qi.md)
 

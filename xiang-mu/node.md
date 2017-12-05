@@ -10,6 +10,8 @@ yum install docker-ce
 
 
 yum install -y flannel
+
+systemctl restart docker
 ```
 
 

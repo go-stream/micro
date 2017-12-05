@@ -20,7 +20,7 @@ systemctl restart docker
 Centos7
 Kubernetes version: 1.9.0
 Etcd version: 3.2.0+git
-Docker version: 1.12.6
+Docker version 17.11.0-ce, build 1caf76c
 ```
 
 | ip | 说明 |
@@ -673,6 +673,7 @@ sudo iptables -I FORWARD -i flannel0  -j ACCEPT
 * [Help](https://help.github.com/)
 
 * [Contact GitHub](https://github.com/contact)
+
 * [API](https://developer.github.com/)
 * [Training](https://training.github.com/)
 * [Shop](https://shop.github.com/)

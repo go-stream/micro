@@ -25,9 +25,10 @@ Docker version 17.11.0-ce, build 1caf76c
 
 | ip | 说明 |
 | :--- | :--- |
-| 172.16.221.131 | etcd、master |
-| 172.16.221.130 | node |
-| 172.16.221.129 | node |
+| 192.168.74.47 | etcd、master |
+| 192.168.74.48 | node |
+| 192.168.74.49 | node |
+| 192.168.74.50 | node |
 
 # 一. 安装
 
@@ -679,6 +680,7 @@ sudo iptables -I FORWARD -i flannel0  -j ACCEPT
 * [Training](https://training.github.com/)
 
 * [Shop](https://shop.github.com/)
+
 * [Blog](https://github.com/blog)
 * [About](https://github.com/about)
 

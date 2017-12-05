@@ -1,5 +1,3 @@
-
-
 ```
 yum install *rhsm*
 
@@ -31,22 +29,22 @@ kubectl describe pod xx
 
 kubectl describe svc example-service
 
+http://192.168.74.250:31412/
+
 {
-$ kubectl describe svc example-service
-Name:                     example-service
-Namespace:                default
-Labels:                   run=load-balancer-example
-Annotations:              <none>
-Selector:                 run=load-balancer-example
-Type:                     NodePort
-IP:                       10.254.39.84
-Port:                     <unset>  80/TCP
-TargetPort:               80/TCP
-NodePort:                 <unset>  30110/TCP
-Endpoints:                10.1.69.3:80,10.1.99.2:80
-Session Affinity:         None
-External Traffic Policy:  Cluster
-Events:                   <none>
+[root@node1 opt]# kubectl describe svc example-service
+Name:			example-service
+Namespace:		default
+Labels:			run=load-balancer-example
+Selector:		run=load-balancer-example
+Type:			NodePort
+IP:			10.254.91.69
+Port:			<unset>	80/TCP
+NodePort:		<unset>	31412/TCP
+Endpoints:		172.17.0.2:80,172.17.0.3:80
+Session Affinity:	None
+No events.
+
 }
 {
 error1:
@@ -59,51 +57,7 @@ error2 ping 不同
 
 iptables -I FORWARD -i flannel0  -j ACCEPT
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
 ```
-
-
-
-
-
-
 
 
 

@@ -52,4 +52,5 @@
   * [证书](xiang-mu/zheng-shu.md)
   * [master](xiang-mu/master.md)
   * [node](xiang-mu/node.md)
+* [单机版测试k8s环境](dan-ji-ban-ce-shi-k8s-huan-jing.md)
 

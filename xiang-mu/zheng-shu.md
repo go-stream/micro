@@ -5,7 +5,9 @@ O: kube-apiserver 从证书中提取该字段作为请求用户所属的组 \(Gr
 ### \(1\). 创建 CA 配置文件 ca-config.json
 
 ```bash
- cat <<EOF >> ca-config.json
+  mkdir /opt/ssl
+cd /opt/ssl
+cat <<EOF >> ca-config.json
 {
   "signing": {
     "default": {

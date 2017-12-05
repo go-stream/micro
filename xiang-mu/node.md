@@ -19,9 +19,8 @@ systemctl restart docker
 ```
 Centos7
 Kubernetes version: 1.9.0
-Etcd version: 3.2.0
+Etcd version: 3.2.0+git
 Docker version: 1.12.6
-
 ```
 
 | ip | 说明 |
@@ -38,7 +37,6 @@ Docker version: 1.12.6
 $ go get github.com/coreos/etcd
 $ cd $GOPATH/src/github.com/coreos/etcd
 $ ./build
-
 ```
 
 ## 2. 安装k8s
@@ -47,7 +45,6 @@ $ ./build
 $ go get -d k8s.io/kubernetes
 $ cd $GOPATH/src/k8s.io/kubernetes
 $ make
-
 ```
 
 ## 3. 安装CFSSL
@@ -58,7 +55,6 @@ $ wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
 $ chmod +x cfssl_linux-amd64 cfssljson_linux-amd64
 $ sudo mv cfssl_linux-amd64 /usr/local/bin/cfssl
 $ sudo mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
-
 ```
 
 ## 4. 安装docker-ce
@@ -75,14 +71,12 @@ $ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/do
 
 (4). 安装docker-ce
 $ sudo yum install docker-ce
-
 ```
 
 ## 5. 安装flanneld
 
 ```
 $ sudo yum install -y flannel
-
 ```
 
 # 二、生成证书和kubeconfig文件
@@ -94,7 +88,6 @@ $ sudo yum install -y flannel
 ```
 CN: kube-apiserver 从证书中提取该字段作为请求的用户名 (User Name)；浏览器使用该字段验证网站是否合法
 O: kube-apiserver 从证书中提取该字段作为请求用户所属的组 (Group)
-
 ```
 
 ### \(1\). 创建 CA 配置文件 ca-config.json
@@ -118,7 +111,6 @@ O: kube-apiserver 从证书中提取该字段作为请求用户所属的组 (Gro
     }
   }
 }
-
 ```
 
 ### \(2\). 创建 CA 证书签名请求 ca-csr.json
@@ -140,14 +132,12 @@ O: kube-apiserver 从证书中提取该字段作为请求用户所属的组 (Gro
     }
   ]
 }
-
 ```
 
 ### \(3\). 生成 CA 证书和私钥
 
 ```
 $ cfssl gencert -initca ca-csr.json | cfssljson -bare ca
-
 ```
 
 ## 2. 创建 kubernetes 证书
@@ -183,7 +173,6 @@ $ cfssl gencert -initca ca-csr.json | cfssljson -bare ca
         }
     ]
 }
-
 ```
 
 注： 如果 hosts 字段不为空则需要指定授权使用该证书的 IP 或域名列表
@@ -192,7 +181,6 @@ $ cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 
 ```
 $ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes kubernetes-csr.json | cfssljson -bare kubernetes
-
 ```
 
 ## 3. 创建 admin 证书
@@ -217,14 +205,12 @@ $ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=ku
     }
   ]
 }
-
 ```
 
 ### \(2\). 生成 admin 证书和私钥
 
 ```
 $ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes admin-csr.json | cfssljson -bare admin
-
 ```
 
 ## 4. 创建 kube-proxy 证书
@@ -249,14 +235,12 @@ $ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=ku
     }
   ]
 }
-
 ```
 
 ### \(2\). 生成 kube-proxy 客户端证书和私钥
 
 ```
 $ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes  kube-proxy-csr.json | cfssljson -bare kube-proxy
-
 ```
 
 ## 5. 生成token
@@ -266,7 +250,6 @@ $ export BOOTSTRAP_TOKEN=$(head -c 16 /dev/urandom | od -An -t x | tr -d ' ')
 $ echo ${BOOTSTRAP_TOKEN},kubelet-bootstrap,10001,"system:kubelet-bootstrap" 
 >
  token.csv
-
 ```
 
 ## 6. 生成kubelet kubeconfig文件
@@ -279,7 +262,6 @@ $ kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --
 $ kubectl config set-context default  --cluster=kubernetes --user=kubelet-bootstrap  --kubeconfig=kubelet-bootstrap.kubeconfig
 
 $ kubectl config use-context default --kubeconfig=kubelet-bootstrap.kubeconfig
-
 ```
 
 ## 7. 生成kube-proxy kubeconfig文件
@@ -292,7 +274,6 @@ $ kubectl config set-credentials kube-proxy --client-certificate=kube-proxy.pem 
 $ kubectl config set-context default --cluster=kubernetes  --user=kube-proxy --kubeconfig=kube-proxy.kubeconfig
 
 $ kubectl config use-context default --kubeconfig=kube-proxy.kubeconfig
-
 ```
 
 ## 8. 拷贝证书、kubeconfig和token文件
@@ -313,7 +294,6 @@ do
 &
  rm k8s.tar'
 done
-
 ```
 
 # 三、启动服务
@@ -325,63 +305,54 @@ done
 ```
 $ sudo systemctl stop firewalld.service
 $ sudo systemctl disable firewalld.service // 禁止开机启动
-
 ```
 
 ### \(2\). 启动etcd
 
 ```
 $ $GOPATH/src/github.com/coreos/etcd/bin/etcd --advertise-client-urls=http://0.0.0.0:2379 --listen-client-urls=http://0.0.0.0:2379
-
 ```
 
 ### \(3\). 启动docker
 
 ```
 $ systemctl start docker
-
 ```
 
 ### \(4\). 启动kube-apiserver
 
 ```
-$ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kube-apiserver --advertise-address=0.0.0.0 --bind-address=0.0.0.0 --insecure-bind-address=0.0.0.0 --etcd-servers=http://127.0.0.1:2379 --service-cluster-ip-range=10.254.0.0/16 --admission-control=ServiceAccount,NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota --authorization-mode=RBAC --runtime-config=rbac.authorization.k8s.io/v1beta1 --kubelet-https=true --token-auth-file=/etc/k8s/token.csv --service-node-port-range=30000-32767 --tls-cert-file=/etc/k8s/ssl/kubernetes.pem --tls-private-key-file=/etc/k8s/ssl/kubernetes-key.pem --client-ca-file=/etc/k8s/ssl/ca.pem --service-account-key-file=/etc/k8s/ssl/ca-key.pem 
-
+$ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kube-apiserver --advertise-address=0.0.0.0 --bind-address=0.0.0.0 --insecure-bind-address=0.0.0.0 --etcd-servers=http://127.0.0.1:2379 --service-cluster-ip-range=10.254.0.0/16 --admission-control=ServiceAccount,NamespaceLifecycle,NamespaceExists,LimitRanger,ResourceQuota --authorization-mode=RBAC --runtime-config=rbac.authorization.k8s.io/v1beta1 --kubelet-https=true --token-auth-file=/etc/k8s/token.csv --service-node-port-range=30000-32767 --tls-cert-file=/etc/k8s/ssl/kubernetes.pem --tls-private-key-file=/etc/k8s/ssl/kubernetes-key.pem --client-ca-file=/etc/k8s/ssl/ca.pem --service-account-key-file=/etc/k8s/ssl/ca-key.pem
 ```
 
 #### 注:
 
 ```
 --authorization-mode=RBAC 指定在安全端口使用 RBAC 授权模式，拒绝未通过授权的请求
-
 ```
 
 ### \(5\). 启动kube-controller-manager
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kube-controller-manager --address=127.0.0.1 --service-cluster-ip-range=10.254.0.0/16 --cluster-name=kubernetes --cluster-signing-cert-file=/etc/k8s/ssl/ca.pem --cluster-signing-key-file=/etc/k8s/ssl/ca-key.pem --service-account-private-key-file=/etc/k8s/ssl/ca-key.pem --root-ca-file=/etc/k8s/ssl/ca.pem --leader-elect=true --master=http://127.0.0.1:8080
-
 ```
 
 ### \(6\). 启动kube-scheduler
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kube-scheduler --leader-elect=true --address=127.0.0.1 --master=http://127.0.0.1:8080
-
 ```
 
 ### \(7\). 将token.csv文件中的kubelet-bootstrap 用户赋予 system:node-bootstrapper cluster 角色\(role\)，kubelet 才能有权限创建认证请求
 
 ```
 $ kubectl create clusterrolebinding kubelet-bootstrap --clusterrole=system:node-bootstrapper --user=kubelet-bootstrap
-
 ```
 
 ### \(8\). 启动kubelet
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kubelet --address=172.16.221.131 --hostname-override=172.16.221.131 --pod-infra-container-image=singlestep/pod-infrastructure --cgroup-driver=cgroupfs --cluster-dns=10.254.0.2 --experimental-bootstrap-kubeconfig=/etc/k8s/kubelet-bootstrap.kubeconfig --kubeconfig=/etc/k8s/kubelet.kubeconfig --require-kubeconfig --cert-dir=/etc/k8s/ssl --cluster-domain=cluster.local. --hairpin-mode promiscuous-bridge --serialize-image-pulls=false --fail-swap-on=false --runtime-cgroups=/systemd/system.slice --kubelet-cgroups=/systemd/system.slice
-
 ```
 
 #### 注:
@@ -397,14 +368,12 @@ kubectl create clusterrolebinding node-172.16.221.131 --clusterrole=system:node 
 (4). 报Failed to get system container stats for "/user.slice/user-1000.slice/session-40.scope": failed to get cgroup stats for "/user.slice/user-1000.slice/session-40.scope": failed to get container info for "/user.slice/user-1000.slice/session-40.scope": unknown container "/user.slice/user-1000.slice/session-40.scope"错时，启动kubelet加 --runtime-cgroups=/systemd/system.slice --kubelet-cgroups=/systemd/system.slice 参数
 
 出现Successfully registered node XXX表示注册成功
-
 ```
 
 ### \(9\). 启动kube-proxy
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kube-proxy --bind-address=172.16.221.131 --hostname-override=172.16.221.131 --kubeconfig=/etc/k8s/kube-proxy.kubeconfig --cluster-cidr=10.254.0.0/16
-
 ```
 
 ### \(10\). 启动flanneld
@@ -456,7 +425,6 @@ UP,POINTOPOINT,RUNNING,NOARP,MULTICAST
         inet 10.1.10.0  netmask 255.255.0.0  destination 10.1.10.0
 
 (5). 重启kubelet
-
 ```
 
 ## 2. 启动node\(172.16.221.130\)
@@ -466,28 +434,24 @@ UP,POINTOPOINT,RUNNING,NOARP,MULTICAST
 ```
 $ sudo systemctl stop firewalld.service
 $ sudo systemctl disable firewalld.service // 禁止开机启动
-
 ```
 
 ### \(2\). 启动docker
 
 ```
 $ systemctl start docker
-
 ```
 
 ### \(3\). 启动kubelet
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kubelet --address=172.16.221.130 --hostname-override=172.16.221.130 --pod-infra-container-image=singlestep/pod-infrastructure --cgroup-driver=cgroupfs --cluster-dns=10.254.0.2 --experimental-bootstrap-kubeconfig=/etc/k8s/kubelet-bootstrap.kubeconfig --kubeconfig=/etc/k8s/kubelet.kubeconfig --require-kubeconfig --cert-dir=/etc/k8s/ssl --cluster-domain=cluster.local. --hairpin-mode promiscuous-bridge --serialize-image-pulls=false --fail-swap-on=false --runtime-cgroups=/systemd/system.slice --kubelet-cgroups=/systemd/system.slice
-
 ```
 
 ### \(4\). 启动kube-proxy
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kube-proxy --bind-address=172.16.221.130 --hostname-override=172.16.221.130 --kubeconfig=/etc/k8s/kube-proxy.kubeconfig --cluster-cidr=10.254.0.0/16
-
 ```
 
 ### \(5\). 启动flanneld
@@ -535,7 +499,6 @@ UP,POINTOPOINT,RUNNING,NOARP,MULTICAST
         inet 10.1.1.0  netmask 255.255.0.0  destination 10.1.1.0
 
 (4). 重启kubelet
-
 ```
 
 ## 3. 启动node\(172.16.221.129\)
@@ -545,28 +508,24 @@ UP,POINTOPOINT,RUNNING,NOARP,MULTICAST
 ```
 $ sudo systemctl stop firewalld.service
 $ sudo systemctl disable firewalld.service // 禁止开机启动
-
 ```
 
 ### \(2\). 启动docker
 
 ```
 $ systemctl start docker
-
 ```
 
 ### \(3\). 启动kubelet
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kubelet --address=172.16.221.129 --hostname-override=172.16.221.129 --pod-infra-container-image=singlestep/pod-infrastructure --cgroup-driver=cgroupfs --cluster-dns=10.254.0.2 --experimental-bootstrap-kubeconfig=/etc/k8s/kubelet-bootstrap.kubeconfig --kubeconfig=/etc/k8s/kubelet.kubeconfig --require-kubeconfig --cert-dir=/etc/k8s/ssl --cluster-domain=cluster.local. --hairpin-mode promiscuous-bridge --serialize-image-pulls=false --fail-swap-on=false --runtime-cgroups=/systemd/system.slice --kubelet-cgroups=/systemd/system.slice
-
 ```
 
 ### \(4\). 启动kube-proxy
 
 ```
 $ sudo $GOPATH/src/k8s.io/kubernetes/_output/bin/kube-proxy --bind-address=172.16.221.129 --hostname-override=172.16.221.129 --kubeconfig=/etc/k8s/kube-proxy.kubeconfig --cluster-cidr=10.254.0.0/16
-
 ```
 
 ### \(5\). 启动flanneld
@@ -615,7 +574,6 @@ UP,POINTOPOINT,RUNNING,NOARP,MULTICAST
         inet 10.1.59.0  netmask 255.255.0.0  destination 10.1.59.0
 
 (4). 重启kubelet
-
 ```
 
 ## 4. 验证
@@ -656,7 +614,6 @@ none
         443/TCP        1d
 
 (9). 访问172.16.221.129:31183、172.16.221.130:31183、172.16.221.131:31183
-
 ```
 
 ## 5. 问题总结
@@ -704,7 +661,6 @@ PING 10.1.99.2 (10.1.99.2) 56(84) bytes of data.
 
 解决方法:
 sudo iptables -I FORWARD -i flannel0  -j ACCEPT
-
 ```
 
 * © 2017
@@ -715,8 +671,6 @@ sudo iptables -I FORWARD -i flannel0  -j ACCEPT
 * [Security](https://github.com/security)
 * [Status](https://status.github.com/)
 * [Help](https://help.github.com/)
-
-
 
 * [Contact GitHub](https://github.com/contact)
 * [API](https://developer.github.com/)

@@ -25,7 +25,7 @@ Docker version 17.11.0-ce, build 1caf76c
 
 | ip | 说明 |
 | :--- | :--- |
-| 172.16.221.131 | etcd、master、node |
+| 172.16.221.131 | etcd、master |
 | 172.16.221.130 | node |
 | 172.16.221.129 | node |
 
@@ -677,6 +677,7 @@ sudo iptables -I FORWARD -i flannel0  -j ACCEPT
 * [API](https://developer.github.com/)
 
 * [Training](https://training.github.com/)
+
 * [Shop](https://shop.github.com/)
 * [Blog](https://github.com/blog)
 * [About](https://github.com/about)

@@ -14,6 +14,8 @@ yum install -y flannel
 systemctl restart docker
 ```
 
+# https://github.com/asinglestep/k8s-learn/blob/master/v1.9.0%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.md
+
 # 零. 配置
 
 ```
@@ -682,6 +684,7 @@ sudo iptables -I FORWARD -i flannel0  -j ACCEPT
 * [Shop](https://shop.github.com/)
 
 * [Blog](https://github.com/blog)
+
 * [About](https://github.com/about)
 
 

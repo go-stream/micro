@@ -8,6 +8,7 @@ yum-config-manager --enable docker-ce-edge
 yum-config-manager --enable docker-ce-test
 yum install docker-ce
 
+
 yum install -y flannel
 ```
 

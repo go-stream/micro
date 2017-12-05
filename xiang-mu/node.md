@@ -17,7 +17,7 @@ systemctl restart docker
 # 零. 配置
 
 ```
-Centos7
+Centos7.4
 Kubernetes version: 1.9.0
 Etcd version: 3.2.0+git
 Docker version 17.11.0-ce, build 1caf76c
@@ -675,6 +675,7 @@ sudo iptables -I FORWARD -i flannel0  -j ACCEPT
 * [Contact GitHub](https://github.com/contact)
 
 * [API](https://developer.github.com/)
+
 * [Training](https://training.github.com/)
 * [Shop](https://shop.github.com/)
 * [Blog](https://github.com/blog)

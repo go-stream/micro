@@ -13,6 +13,7 @@
   * [gorm](goji-chu/gorm.md)
     * [栗子](goji-chu/gorm/li-zi.md)
   * [redigo](goji-chu/redigo.md)
+    * [redis](goji-chu/redigo/redis.md)
 * [micro](micro.md)
   * [Overview\(综述\)](micro/overviewzong-8ff029.md)
     * Introduction\(介绍\)

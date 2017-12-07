@@ -11,6 +11,7 @@
   * [接口](goji-chu/jie-kou.md)
   * [高级](goji-chu/gao-ji.md)
   * [gorm](goji-chu/gorm.md)
+    * [栗子](goji-chu/gorm/li-zi.md)
   * [redigo](goji-chu/redigo.md)
 * [micro](micro.md)
   * [Overview\(综述\)](micro/overviewzong-8ff029.md)

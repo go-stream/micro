@@ -3,6 +3,7 @@
 * [简介](README.md)
 * [go基础](goji-chu.md)
   * [程序结构](goji-chu/1.md)
+  * 基础数据结构
 * [micro](micro.md)
   * [Overview\(综述\)](micro/overviewzong-8ff029.md)
     * Introduction\(介绍\)

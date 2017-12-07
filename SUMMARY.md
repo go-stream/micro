@@ -10,6 +10,7 @@
   * [方法](goji-chu/fang-fa.md)
   * [接口](goji-chu/jie-kou.md)
   * [高级](goji-chu/gao-ji.md)
+  * [gorm](goji-chu/gorm.md)
 * [micro](micro.md)
   * [Overview\(综述\)](micro/overviewzong-8ff029.md)
     * Introduction\(介绍\)

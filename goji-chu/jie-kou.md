@@ -31,19 +31,19 @@ w.Write([]byte("hello")) // "hello"
 
 一个包含nil指针的接口不是nil接口
 
-	
+
 }
 
 sort.interface接口
 {
-	
+
 }
 
 http.handler接口
 {
 package http
 type Handler interface {
-	ServeHTTP(w ResponseWriter, r *Request)
+    ServeHTTP(w ResponseWriter, r *Request)
 } 
 func ListenAndServe(address string, h Handler) error
 istenAndServe函数需要一个例如“localhost:8000”的服务器地址，和一个所有请求都可以分派的Handler接口实例。
@@ -51,21 +51,20 @@ istenAndServe函数需要一个例如“localhost:8000”的服务器地址，�
 
 error接口
 {
-	
+
 }
 
 类型断言
 {
-	
+
 }
 
-类型分支	
+类型分支    
 {
-	
-}
 
 }
 
+}
 ```
 
 

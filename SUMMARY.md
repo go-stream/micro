@@ -9,6 +9,7 @@
   * [函数](goji-chu/han-shu.md)
   * [方法](goji-chu/fang-fa.md)
   * [接口](goji-chu/jie-kou.md)
+  * [高级](goji-chu/gao-ji.md)
 * [micro](micro.md)
   * [Overview\(综述\)](micro/overviewzong-8ff029.md)
     * Introduction\(介绍\)

@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 ```
 连接命令
 查看服务器是否运行
@@ -33,52 +25,52 @@ exit
 
 
 键key-->键值存取
-	set key value
-	get key
+    set key value
+    get key
 键key-->键值删除
-	del key
+    del key
 键key-->判断有无
-	exists key
+    exists key
 键key-->键值列表
-	keys pattern
+    keys pattern
 键key-->键值重命名
-	RENAME key newkey
-	RENAMENX key newkey
+    RENAME key newkey
+    RENAMENX key newkey
 
 
 
 
 键key-->随机取键
-	randomkey
+    randomkey
 键key-->键值序列化
-	dump key
+    dump key
 键key-->查看类型
-	type key
+    type key
 键key-->键值移库
-	move key db
+    move key db
 键key-->键值超时
-	expire key seconds
-	expireat key timestamp    时间戳10位数字
-	pexpire key milliseconds
-	pexpireat key milliseconds-timestamp   时间戳13位数字
+    expire key seconds
+    expireat key timestamp    时间戳10位数字
+    pexpire key milliseconds
+    pexpireat key milliseconds-timestamp   时间戳13位数字
 
 
 键key-->查询过期
-	TTL  key
-	PTTL key
+    TTL  key
+    PTTL key
 
 键key-->取消过期
-	persist key
+    persist key
 
 --------------------------------------------------------
 
 字符串string-->字符串值设置
-	set key value
+    set key value
  getset key value     与set key value几乎相同，只是返回值为key的旧值，如果是新键则返回nil
-	setnx key value
-	mset key value [key value...]
-	msetnx key value [key value...]
-	
+    setnx key value
+    mset key value [key value...]
+    msetnx key value [key value...]
+
 字符串string-->字符串获取
 get key
 mget key1 [key2....]
@@ -129,19 +121,19 @@ setbit key offset value
 对照获取二进制某一位进行操作
 
 字符串string-->获取字符串长度
-	strlen key
+    strlen key
 
 字符串string-->设置字符串及过期时间
-	setex key seconds value
-	psetex key milliseconds value
+    setex key seconds value
+    psetex key milliseconds value
 
 字符串string-->字符串运算
-	incr key
-	incrby key increment
-	incrbyfloat key increment
-	decr key
-	decrby key decrement
-	append key value
+    incr key
+    incrby key increment
+    incrbyfloat key increment
+    decr key
+    decrby key decrement
+    append key value
 
 
 -------------------------------------------------------
@@ -328,7 +320,7 @@ start 和 stop 指的是索引
 zrevrangebyscore key max min [withscores]  按分数从高到低输出
 max 和 min 指的是分数
 
- 
+
 有序集合set-->迭代获取成员数据
 zscan key cursor [match pattern]
 
@@ -493,7 +485,7 @@ hash-max-zipmap-value 512
                                       |-------channel1------------ clientA
 client1 ------channel1---------server |-------channel1------------ clientB
                                       |-------channel1------------ clientC
-									  
+
 
 
 设计模式：观察者模式

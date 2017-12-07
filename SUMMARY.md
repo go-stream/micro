@@ -1,6 +1,7 @@
 # Summary
 
 * [简介](README.md)
+* [go基础](goji-chu.md)
 * [micro](micro.md)
   * [Overview\(综述\)](micro/overviewzong-8ff029.md)
     * Introduction\(介绍\)
